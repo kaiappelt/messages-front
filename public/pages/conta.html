@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../libs/bootstrap5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" href="../css/conta.css">
+
+    <title>Login</title>
+</head>
+<body>
+    
+    <div class="container vh-100">
+        <div class="forms-area">
+            <div class="img-login display-image"></div>
+
+            <div class="data-input-area">
+                <div class="row bottom-content">
+                    <div class="col-12 text-center mb-4">
+                        <span class="title-page">CRIAR CONTA</span>
+                    </div>
+    
+                    <div class="col-12 mb-3 w-100">
+                        <input id="emailForm" type="email" placeholder="E-mail" class="form-control rounded-0">
+                        <div id="emailError" class="form-error"></div>
+                    </div>
+
+                    
+                    <div class="col-12 mb-3 w-100">
+                        <input id="password" type="password" placeholder="Senha" class="form-control rounded-0">
+                        <div id="passwordError" class="form-error"></div>
+                    </div>
+    
+                    
+                    <div class="col-12 mb-3">
+                        <input id="confirmPassword" type="password" placeholder="Confirmação de senha" class="form-control rounded-0">
+                        <div id="confirmPasswordError" class="form-error"></div>
+                    </div>
+    
+    
+                    <div class="col-12 mb-2">
+                        <button onclick="insertUser()" type="button" class="btn btn-success w-100">
+                            CRIAR CONTA AGORA
+                        </button>
+                    </div>
+    
+                    <div class="col-12 text-center">
+                        <a href="../index.html" class="create-account">VOLTAR PARA O LOGIN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../api.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../libs/sweetalert2/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="../js/validation.js"></script>
+    <script type="text/javascript" src="../js/conta.js"></script>
+</body>
+</html>

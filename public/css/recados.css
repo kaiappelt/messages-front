@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2? family = Roboto & display = swap'); 
+
+html,body {
+    background-color: #fafafa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-area {
+    width: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.table-area {
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border: 1px solid #fafafa;
+    border-radius: 10px;
+}

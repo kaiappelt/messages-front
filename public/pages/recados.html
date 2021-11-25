@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../libs/bootstrap5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" href="../css/recados.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="container vh-100">
+        <div class="form-area">
+            <div class="row">
+                <div class="col-12">
+                    <div id="alertMsg" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span id="welcome"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                </div>
+            </div>
+
+            <div class="table-area">
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <button onclick="logout()" type="button" class="btn btn-secondary">
+                            <i class="fas fa-power-off"></i>
+                            Sair
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h1>Meus recados</h1>
+                    </div>
+
+                    <div class="col-5">
+                        <input id="descriptionMsg" type="text" placeholder="Descrição" class="form-control">
+                    </div>
+
+                    <div class="col-7">
+                        <div class="input-group mb-3">
+                            <input id="detailsMsg" type="text" class="form-control" placeholder="Detalhes" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button onclick="core()"  class="btn btn-primary" type="button" id="button-addon2">Salvar</button>
+                          </div>                          
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th class="text-start">Descrição</th>
+                                <th class="text-start">Detalhes</th>
+                                <th class="text-center">Ações</th>
+                              </tr>
+                            </thead>
+
+
+                            <tbody id="tbody"></tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../api.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../libs/sweetalert2/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="../js/validation.js"></script>
+    <script type="text/javascript" src="../js/recados.js"></script>
+</body>
+</html>

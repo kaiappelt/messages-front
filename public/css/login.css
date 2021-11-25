@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2? family = Roboto & display = swap'); 
+
+html, body {
+    background-color: #fafafa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.forms-area {
+    width: 100%;
+    height: 550px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+
+    background-color: #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border: 1px solid #fafafa;
+}
+
+.img-login {
+    background-image: url("../img/img-login.png");
+    width: 50%;
+    height: 100%;
+}
+
+.data-input-area {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 50%;
+    height: 100%;
+}
+
+.title-page {
+    color: #767674;
+    font-weight: 600%;
+}
+
+.bottom-content {
+    padding: 50px;
+}
+
+.create-account {
+    color: #868684;
+    font-weight: 400;
+    font-size: 10pt;
+    text-decoration: none;
+}
+
+.create-account:hover {
+    text-decoration: underline;
+    color: #868684;
+    font-weight: 400;
+}
+
+.display-image {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .display-image {
+        display: none;
+    }
+
+    .data-input-area {
+        align-items: center;
+        flex-direction: unset;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
