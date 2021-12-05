@@ -1,4 +1,3 @@
-
 const html = {
     get(element) {
         return document.getElementById(element);
@@ -6,9 +5,6 @@ const html = {
 }
 
 const state = {
-    // welcome: html.get("welcome"),
-    // alert: html.get("alertMsg"),
-    
     tbody: html.get("tbody"),
     descriptionMsg: html.get("descriptionMsg"),
     detailsMsg: html.get("detailsMsg"),
@@ -19,25 +15,19 @@ const state = {
 init();
 
 // verificar sessão ativa
-// function isLogged() {
-//     let session = localStorage.session;
-
-//     if (session === "true") {
-//         welcomeMsg(); 
-//         getAll();
-//     } else {
-//         window.location.href = 'login.html';
-//     }
-// }
-
+function isLogged() {
+    if(!localStorage.getItem('token')) {
+        logout();
+    }
+}
 // encerra sessão
 function logout() {
-    
+    config.logout();
 }
 
-// mensagem de bem-vindo
-function welcomeMsg() {
-   
+function init() {
+    getAll();
+    isLogged();
 }
 
 // recupera todos os dados da tabela
@@ -47,7 +37,11 @@ function getAll() {
         populateTable(response.data);
     })
     .catch(error => {
-        console.log(error);
+        if(error.response.status === 401){
+            logout();
+        } else {
+            swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
+        }
     }) 
 }
 
@@ -81,7 +75,11 @@ function insertNewMsg() {
                 getAll();
             }
         }).catch(error => {
-            console.log(error);
+            if(error.response.status === 401){
+                logout();
+            } else {
+                swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
+            }
         })
 
     } else {
@@ -112,7 +110,11 @@ function getMessageId(id){
         state.detailsMsg.value = response.data.details;
         state.dataMessageId = response.data.id;
     }).catch(error => {
-        console.log(error);
+        if(error.response.status === 401){
+            logout();
+        } else {
+            swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
+        }
     })
 }
 
@@ -135,7 +137,11 @@ function update() {
                 getAll();
             }
         }).catch(error => {
-            console.log(error);
+            if(error.response.status === 401){
+                logout();
+            } else {
+                swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
+            }
         })
     } else {
         let errorDescription = formValidation.errorMessages.descriptionMsg;
@@ -181,7 +187,11 @@ function deleteMessage(dataId){
             getAll();
         }
     }).catch(error => {
-        console.log(error);
+        if(error.response.status === 401){
+            logout();
+        } else {
+            swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
+        }
     })
       
 }
@@ -235,7 +245,6 @@ function populateTable(messages) {
     }
 }
 
-
 //Cria um elemento button
 function createButton(attributes, el) {
     let btn = document.createElement("button");
@@ -261,10 +270,6 @@ function createButton(attributes, el) {
     }
 
     el.appendChild(btn);
-}
-
-function init() {
-    getAll();
 }
 
 // limpa tudo
