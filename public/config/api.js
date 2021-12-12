@@ -1,4 +1,4 @@
-const baseURL = 'https://api-messages1.herokuapp.com/';
+const baseURL = 'https://api-messages1.herokuapp.com';
 
 const api = axios.create({
     baseURL,
