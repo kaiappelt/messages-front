@@ -15,7 +15,7 @@ function login() {
         return false;
     }
     
-    api.post("/users/auth", auth)
+    api.post("/auth", auth)
     .then(response => {
         if(response.request.status === 200){
             localStorage.setItem("token", response.data.token);
