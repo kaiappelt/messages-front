@@ -4,8 +4,6 @@ const state = {
 }
 
 async function login() {
-    config.loaderPage();
-
     const auth = {
         email: state.email.value,
         password: state.password.value
@@ -16,6 +14,8 @@ async function login() {
 
         return false;
     }
+
+    config.loaderPage();
     
     await api.post("/auth", auth)
     .then(response => {
