@@ -5,6 +5,8 @@ const html = {
 }
 
 const state = {
+    userSession: {},
+    welcome: html.get("welcome"),
     tbody: html.get("tbody"),
     descriptionMsg: html.get("descriptionMsg"),
     detailsMsg: html.get("detailsMsg"),
@@ -14,25 +16,31 @@ const state = {
 
 init();
 
-// verificar sessão ativa
-function isLogged() {
-    if(!localStorage.getItem('token')) {
-        logout();
-    }
-}
 // encerra sessão
 function logout() {
     config.logout();
 }
 
 function init() {
+    let userSession = localStorage.userSession;
+    let token = localStorage.token;
+
+    if (! userSession || ! token) {
+        logout();
+    }
+
+    state.userSession = JSON.parse(userSession);
+
+    state.welcome.innerHTML = `Bem vindo(a) ${state.userSession.name}!`;
+
     getAll();
-    isLogged();
 }
 
 // recupera todos os dados da tabela
 function getAll() {
-    api.get("/messages")
+    const userId = state.userSession.id;
+
+    api.get(`/messages/user/${userId}`)
     .then(response => {
         populateTable(response.data);
     })
@@ -57,17 +65,22 @@ function core(){
 }
 
 // insere um novo registro
-function insertNewMsg() {
+async function insertNewMsg() {
+    config.loaderPage();
+
     formValidation.setRules(state.descriptionMsg.value, "descriptionMsg");
     formValidation.setRules(state.detailsMsg.value, "detailsMsg");
 
     if (formValidation.run()) {
+        const userId = state.userSession.id;
+
         let newMessage = {
+            user_id: userId,
             description: state.descriptionMsg.value,
             details: state.detailsMsg.value
         } 
 
-        api.post("/messages", newMessage)
+    await api.post("/messages", newMessage)
         .then(response => {
             if(response.request.status === 200){
                 swal.fire("Sucesso!", "Dados salvos com sucesso.", "success");
@@ -103,8 +116,10 @@ function insertNewMsg() {
 }
 
 // recupera um registro pelo id
-function getMessageId(id){
-    api.get(`/messages/${id}`)
+async function getMessageId(id){
+    config.loaderPage();
+
+    await api.get(`/messages/${id}`)
     .then(response => {
         state.descriptionMsg.value = response.data.description;
         state.detailsMsg.value = response.data.details;
@@ -116,10 +131,14 @@ function getMessageId(id){
             swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
         }
     })
+
+    swal.close();
 }
 
 // edita um registro existente
-function update() {
+async function update() {
+    config.loaderPage();
+
     formValidation.setRules(state.descriptionMsg.value, "descriptionMsg");
     formValidation.setRules(state.detailsMsg.value, "detailsMsg");
 
@@ -129,7 +148,7 @@ function update() {
             details: state.detailsMsg.value,
         }
 
-        api.put(`/messages/${state.dataMessageId}`, chooseMessage)
+        await api.put(`/messages/${state.dataMessageId}`, chooseMessage)
         .then(response => { 
             if(response.request.status === 200) {
                 swal.fire("Sucesso!", "Dados salvos com sucesso.", "success")
@@ -178,8 +197,10 @@ function openModalDelete(dataId){
 }
 
 // exclui o registro
-function deleteMessage(dataId){
-    api.delete(`/messages/${dataId}`)
+async function deleteMessage(dataId){
+    config.loaderPage();
+
+    await api.delete(`/messages/${dataId}`)
     .then(response => {
         if(response.request.status === 200) {
             swal.fire("Sucesso!", "Registro excluído com sucesso.", "success");
@@ -192,6 +213,8 @@ function deleteMessage(dataId){
         } else {
             swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
         }
+
+        swal.close();
     })
       
 }

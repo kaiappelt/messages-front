@@ -3,7 +3,9 @@ const state = {
     password: document.getElementById("password"),
 }
 
-function login() {
+async function login() {
+    config.loaderPage();
+
     const auth = {
         email: state.email.value,
         password: state.password.value
@@ -15,10 +17,11 @@ function login() {
         return false;
     }
     
-    api.post("/auth", auth)
+    await api.post("/auth", auth)
     .then(response => {
         if(response.request.status === 200){
-            localStorage.setItem("token", response.data.token);
+            populateSession(response.data);
+
             window.location.href = "../pages/recados.html";
         }
     })
@@ -33,5 +36,12 @@ function login() {
             swal.fire("Erro!", "Não foi possível realizar a sua solicitação.", "error");
         }
     })
+}
+
+function populateSession(response) {
+    const userSession = JSON.stringify(response.user);
+
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("userSession", userSession);
 }
 

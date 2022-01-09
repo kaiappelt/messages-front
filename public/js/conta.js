@@ -5,23 +5,28 @@ const html = {
 }
 
 const state = {
+    nameForm: html.get("nameForm"),
     emailForm: html.get("emailForm"),
     passwordForm: html.get("password"),
     confirmPasswordForm: html.get("confirmPassword"),
 
+    nameError: html.get("nameError"),
     emailError: html.get("emailError"),
     passwordError: html.get("passwordError"),
     confirmPasswordError: html.get("confirmPasswordError")
 }
 
-function insertUser() {
+async function insertUser() {
+    config.loaderPage();
+
     const newUser = {
+        name: state.nameForm.value,
         email: state.emailForm.value,
         password: state.passwordForm.value,
         password_confirmation: state.confirmPasswordForm.value
     }
     
-    axios.post(baseURL+"/users", newUser)
+    await axios.post(baseURL+"/users", newUser)
     .then(response => {
         const status = response.request.status;
 
@@ -31,6 +36,8 @@ function insertUser() {
     })
     .catch((error) => {
         validationErrorServer(error.response);
+
+        swal.close();
     }) 
 }
 
@@ -54,6 +61,12 @@ function validationErrorServer(response) {
     if(response.status === 400) {
         const field = response.data.validation.body.keys[0];
 
+        if(field === "name") {
+            state.nameError.innerHTML = "O campo Nome é obrigatório.";
+        } else {
+            state.nameError.innerHTML = "";
+        }
+       
         if(field === "email") {
             state.emailError.innerHTML = "Digite um E-mail válido.";
         } else {
